@@ -1,6 +1,7 @@
 // This Source Code Form is subject to the terms of the Mozilla Public
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/
+/* eslint-disable @typescript-eslint/no-unnecessary-condition */
 
 import { Ruler24Filled } from "@fluentui/react-icons";
 import {
@@ -92,6 +93,7 @@ export function RendererOverlay(props: {
   enableStats: boolean;
   perspective: boolean;
   onTogglePerspective: () => void;
+  onToggleCarFollow: () => void;
   measureActive: boolean;
   onClickMeasure: () => void;
   canPublish: boolean;
@@ -414,6 +416,33 @@ export function RendererOverlay(props: {
             >
               <span className={classes.threeDeeButton}>3D</span>
             </IconButton>
+            {/* add IconButton Component with child for overlay */}
+            <IconButton className={classes.iconButton} onClick={props.onToggleCarFollow}>
+              <svg
+                height="800px"
+                width="800px"
+                version="1.1"
+                id="Capa_1"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlnsXlink="http://www.w3.org/1999/xlink"
+                viewBox="0 0 17.485 17.485"
+                xmlSpace="preserve"
+              >
+                <g>
+                  <g>
+                    <path
+                      style={{ fill: "#fff" }}
+                      d="M17.477,8.149c-0.079-0.739-3.976-0.581-3.976-0.581L11.853,5.23H4.275L3.168,7.567H0v2.404
+			l2.029,0.682c0.123-0.836,0.843-1.48,1.711-1.48c0.939,0,1.704,0.751,1.73,1.685l6.62,0.041c0.004-0.951,0.779-1.726,1.733-1.726
+			c0.854,0,1.563,0.623,1.704,1.439l1.479-0.17C17.006,10.442,17.556,8.887,17.477,8.149z M4.007,7.568l0.746-1.771h2.864
+			l0.471,1.771H4.007z M8.484,7.568L8.01,5.797h3.67l1.137,1.771H8.484z"
+                    />
+                    <circle style={{ fill: "#fff" }} cx="3.759" cy="10.966" r="1.289" />
+                    <circle style={{ fill: "#fff" }} cx="13.827" cy="10.9" r="1.29" />
+                  </g>
+                </g>
+              </svg>
+            </IconButton>
             <IconButton
               data-testid="measure-button"
               className={classes.iconButton}
@@ -424,7 +453,7 @@ export function RendererOverlay(props: {
               <Ruler24Filled className={classes.rulerIcon} />
             </IconButton>
 
-            {publishControls}
+            {false && publishControls}
           </Paper>
         )}
       </div>

@@ -702,6 +702,53 @@ export function ThreeDeeRender(props: {
     });
   }, [actionHandler, renderer]);
 
+  // access the camera state and set specific values
+  const onToggleCarFollow = useCallback(() => {
+    const currentState = renderer?.getCameraState();
+
+    if (currentState == undefined || renderer == undefined) {
+      return;
+    }
+
+    if (!currentState.perspective) {
+      actionHandler({
+        action: "update",
+        payload: {
+          input: "boolean",
+          path: ["cameraState", "perspective"],
+          value: !currentState.perspective,
+        },
+      });
+
+      actionHandler({
+        action: "update",
+        payload: {
+          input: "vec3",
+          path: ["cameraState", "targetOffset"],
+          value: [2.5, 0.5, 0],
+        },
+      });
+      actionHandler({
+        action: "update",
+        payload: {
+          input: "vec3",
+          path: ["cameraState", "target"],
+          value: [2.5, 0.5, 0],
+        },
+      });
+    }
+
+    renderer.setCameraState({
+      ...currentState,
+      distance: 10,
+      perspective: true,
+      targetOffset: [2.5, 0.5, 0],
+      thetaOffset: 90,
+      phi: 60,
+      fovy: 45,
+    });
+  }, [actionHandler, renderer]);
+
   const onKeyDown = useCallback(
     (event: React.KeyboardEvent) => {
       if (event.key === "3") {
@@ -738,6 +785,7 @@ export function ThreeDeeRender(props: {
             enableStats={config.scene.enableStats ?? false}
             perspective={config.cameraState.perspective}
             onTogglePerspective={onTogglePerspective}
+            onToggleCarFollow={onToggleCarFollow}
             measureActive={measureActive}
             onClickMeasure={onClickMeasure}
             canPublish={canPublish}

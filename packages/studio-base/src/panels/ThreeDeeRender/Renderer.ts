@@ -75,7 +75,7 @@ import { Polygons } from "./renderables/Polygons";
 import { PoseArrays } from "./renderables/PoseArrays";
 import { Poses } from "./renderables/Poses";
 import { PublishClickTool } from "./renderables/PublishClickTool";
-import { PublishSettings } from "./renderables/PublishSettings";
+// import { PublishSettings } from "./renderables/PublishSettings";
 import { FoxgloveSceneEntities } from "./renderables/SceneEntities";
 import { SceneSettings } from "./renderables/SceneSettings";
 import { Urdfs } from "./renderables/Urdfs";
@@ -334,7 +334,7 @@ export class Renderer extends EventEmitter<RendererEvents> implements IRenderer 
       case "3d":
         this.cameraHandler = new CameraStateSettings(this, this.#canvas, aspect);
         this.#addSceneExtension(this.cameraHandler);
-        this.#addSceneExtension(new PublishSettings(this));
+        // this.#addSceneExtension(new PublishSettings(this));
         this.#addSceneExtension(new Images(this));
         this.#addSceneExtension(new Cameras(this));
         break;
@@ -355,7 +355,7 @@ export class Renderer extends EventEmitter<RendererEvents> implements IRenderer 
     this.#addSceneExtension(new Urdfs(this));
     this.#addSceneExtension(new VelodyneScans(this));
     this.#addSceneExtension(this.measurementTool);
-    this.#addSceneExtension(this.publishClickTool);
+    // this.#addSceneExtension(this.publishClickTool);
     if (interfaceMode === "image" && config.imageMode.calibrationTopic == undefined) {
       this.#enableImageOnlySubscriptionMode();
     } else {
@@ -1393,8 +1393,8 @@ function baseSettingsTree(interfaceMode: InterfaceMode): SettingsTreeNodes {
     keys.push("cameraState");
   }
   keys.push("transforms", "topics", "layers");
-  if (interfaceMode === "3d") {
-    keys.push("publish");
-  }
+  // if (interfaceMode === "3d") {
+  //   keys.push("publish");
+  // }
   return Object.fromEntries(keys.map((key) => [key, {}]));
 }

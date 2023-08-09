@@ -34,6 +34,10 @@ function makeElectronBuilderConfig(params) {
           target: "deb",
           arch: ["x64", "arm64"],
         },
+        {
+          target: "AppImage",
+          arch: ["x64", "arm64"],
+        },
       ],
       fileAssociations: [
         {
