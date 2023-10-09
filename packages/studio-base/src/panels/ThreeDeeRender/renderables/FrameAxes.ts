@@ -38,7 +38,7 @@ const PI_2 = Math.PI / 2;
 
 const DEFAULT_EDITABLE = false;
 
-const DEFAULT_AXIS_SCALE = 1;
+const DEFAULT_AXIS_SCALE = 0;
 const DEFAULT_LINE_WIDTH_PX = 2;
 const DEFAULT_LINE_COLOR_STR = "#ffff00";
 const DEFAULT_TF_LABEL_SIZE = 0.2;
@@ -134,7 +134,7 @@ export class FrameAxes extends SceneExtension<FrameAxisRenderable> {
 
   public override settingsNodes(): SettingsTreeEntry[] {
     const config = this.renderer.config;
-    const configTransforms = config.transforms;
+    // const configTransforms = config.transforms;
     const handler = this.handleSettingsAction;
     const frameCount = this.renderer.coordinateFrameList.length;
     const children: SettingsTreeChildren = {
@@ -146,14 +146,14 @@ export class FrameAxes extends SceneExtension<FrameAxisRenderable> {
           editable: {
             label: t("threeDee:editable"),
             input: "boolean",
-            value: config.scene.transforms?.editable ?? DEFAULT_EDITABLE,
+            value: DEFAULT_EDITABLE,
           },
           showLabel: {
             label: t("threeDee:labels"),
             input: "boolean",
-            value: config.scene.transforms?.showLabel ?? true,
+            value: config.scene.transforms?.showLabel ?? false,
           },
-          ...((config.scene.transforms?.showLabel ?? true) && {
+          ...((config.scene.transforms?.showLabel ?? false) && {
             labelSize: {
               label: t("threeDee:labelSize"),
               input: "number",
@@ -195,14 +195,14 @@ export class FrameAxes extends SceneExtension<FrameAxisRenderable> {
     let order = 1;
     for (const { label, value: frameId } of this.renderer.coordinateFrameList) {
       const frameKey = `frame:${frameId}`;
-      const tfConfig = this.#getRenderableSettingsWithDefaults(configTransforms[frameKey] ?? {});
+      // const tfConfig = this.#getRenderableSettingsWithDefaults(configTransforms[frameKey] ?? {});
       const frame = this.renderer.transformTree.frame(frameId);
       const fields = buildSettingsFields(frame, this.renderer.currentTime, config);
       tempTfPath[1] = frameKey;
       children[frameKey] = {
         label,
         fields,
-        visible: tfConfig.visible,
+        visible: false,
         order: order++,
         defaultExpansionState: "collapsed",
         error: this.renderer.settings.errors.errors.errorAtPath(tempTfPath),
@@ -272,12 +272,12 @@ export class FrameAxes extends SceneExtension<FrameAxisRenderable> {
           line.lookAt(parentWorldPosition);
           line.rotateY(-PI_2);
           line.scale.set(dist, 1, 1);
-          line.visible = true;
+          line.visible = false;
         }
       }
 
       const label = renderable.userData.label;
-      label.visible = this.renderer.config.scene.transforms?.showLabel ?? true;
+      label.visible = this.renderer.config.scene.transforms?.showLabel ?? false;
       // Add the label offset in "world" coordinates (in the render frame)
       worldPosition.z += labelOffsetZ;
       // Transform worldPosition back to the local coordinate frame of the
