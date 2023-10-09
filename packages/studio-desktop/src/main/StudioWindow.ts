@@ -71,6 +71,7 @@ function newStudioWindow(deepLinks: string[] = [], reloadMainWindow: () => void)
     width: 1200,
     minWidth: 350,
     minHeight: 250,
+    fullscreen: true,
     autoHideMenuBar: true,
     title: FOXGLOVE_PRODUCT_NAME,
     frame: isLinux ? false : true,
