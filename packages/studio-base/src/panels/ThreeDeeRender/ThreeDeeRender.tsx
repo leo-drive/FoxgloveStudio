@@ -772,7 +772,7 @@ export function ThreeDeeRender(props: {
   const canPublish = context.publish != undefined && isRosDataSource;
 
   return (
-    <ThemeProvider isDark={colorScheme === "dark"}>
+    <ThemeProvider isDark={true}>
       <div style={PANEL_STYLE} onKeyDown={onKeyDown}>
         <canvas
           ref={setCanvas}
@@ -788,7 +788,7 @@ export function ThreeDeeRender(props: {
             interfaceMode={interfaceMode}
             canvas={canvas}
             addPanel={addPanel}
-            enableStats={config.scene.enableStats ?? false}
+            enableStats={false}
             perspective={config.cameraState.perspective}
             onTogglePerspective={onTogglePerspective}
             onToggleCarFollow={onToggleCarFollow}

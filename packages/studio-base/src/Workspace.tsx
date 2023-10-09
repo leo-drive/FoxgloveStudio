@@ -26,6 +26,7 @@ import {
 import DocumentDropListener from "@foxglove/studio-base/components/DocumentDropListener";
 import { EventsList } from "@foxglove/studio-base/components/EventsList";
 import KeyListener from "@foxglove/studio-base/components/KeyListener";
+import WelcomePage from "@foxglove/studio-base/components/LeoUI/WelcomePage";
 import {
   MessagePipelineContext,
   useMessagePipeline,
@@ -403,6 +404,14 @@ function WorkspaceContent(props: WorkspaceProps): JSX.Element {
   // Load data source from URL.
   useEffect(() => {
     if (!unappliedSourceArgs) {
+      // select a source as the foxglove bridge automatically
+      selectSource("foxglove-websocket", {
+        type: "connection",
+        params: {
+          bridge: "foxglove",
+          url: "ws://localhost:8765",
+        },
+      });
       return;
     }
 
@@ -437,6 +446,10 @@ function WorkspaceContent(props: WorkspaceProps): JSX.Element {
     setUnappliedTime({ time: undefined });
   }, [playerPresence, seek, unappliedTime]);
 
+  const [firstPageLoad, setFirstPageLoad] = useState(true);
+
+  // load a collada file from the /robot_description topic
+
   return (
     <PanelStateContextProvider>
       {dataSourceDialog.open && <DataSourceDialog />}
@@ -444,35 +457,42 @@ function WorkspaceContent(props: WorkspaceProps): JSX.Element {
       <SyncAdapters />
       <KeyListener global keyDownHandlers={keyDownHandlers} />
       <div className={classes.container} ref={containerRef} tabIndex={0}>
-        <AppBar
-          leftInset={props.appBarLeftInset}
-          onDoubleClick={props.onAppBarDoubleClick}
-          showCustomWindowControls={props.showCustomWindowControls}
-          isMaximized={props.isMaximized}
-          onMinimizeWindow={props.onMinimizeWindow}
-          onMaximizeWindow={props.onMaximizeWindow}
-          onUnmaximizeWindow={props.onUnmaximizeWindow}
-          onCloseWindow={props.onCloseWindow}
-        />
-        <Sidebars
-          leftItems={leftSidebarItems}
-          selectedLeftKey={leftSidebarOpen ? leftSidebarItem : undefined}
-          onSelectLeftKey={sidebarActions.left.selectItem}
-          leftSidebarSize={leftSidebarSize}
-          setLeftSidebarSize={sidebarActions.left.setSize}
-          rightItems={rightSidebarItems}
-          selectedRightKey={rightSidebarOpen ? rightSidebarItem : undefined}
-          onSelectRightKey={sidebarActions.right.selectItem}
-          rightSidebarSize={rightSidebarSize}
-          setRightSidebarSize={sidebarActions.right.setSize}
-        >
-          {/* To ensure no stale player state remains, we unmount all panels when players change */}
-          <RemountOnValueChange value={playerId}>
-            <Stack>
-              <PanelLayout />
-            </Stack>
-          </RemountOnValueChange>
-        </Sidebars>
+        {/* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition */}
+        {false && (
+          <AppBar
+            leftInset={props.appBarLeftInset}
+            onDoubleClick={props.onAppBarDoubleClick}
+            showCustomWindowControls={props.showCustomWindowControls}
+            isMaximized={props.isMaximized}
+            onMinimizeWindow={props.onMinimizeWindow}
+            onMaximizeWindow={props.onMaximizeWindow}
+            onUnmaximizeWindow={props.onUnmaximizeWindow}
+            onCloseWindow={props.onCloseWindow}
+          />
+        )}
+        {firstPageLoad ? (
+          <WelcomePage setFirstPageLoad={setFirstPageLoad} />
+        ) : (
+          <Sidebars
+            leftItems={leftSidebarItems}
+            selectedLeftKey={leftSidebarOpen ? leftSidebarItem : undefined}
+            onSelectLeftKey={sidebarActions.left.selectItem}
+            leftSidebarSize={leftSidebarSize}
+            setLeftSidebarSize={sidebarActions.left.setSize}
+            rightItems={rightSidebarItems}
+            selectedRightKey={rightSidebarOpen ? rightSidebarItem : undefined}
+            onSelectRightKey={sidebarActions.right.selectItem}
+            rightSidebarSize={rightSidebarSize}
+            setRightSidebarSize={sidebarActions.right.setSize}
+          >
+            {/* To ensure no stale player state remains, we unmount all panels when players change */}
+            <RemountOnValueChange value={playerId}>
+              <Stack>
+                <PanelLayout />
+              </Stack>
+            </RemountOnValueChange>
+          </Sidebars>
+        )}
         {play && pause && seek && (
           <div style={{ flexShrink: 0 }}>
             <PlaybackControls
