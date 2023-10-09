@@ -443,15 +443,17 @@ export function RendererOverlay(props: {
                 </g>
               </svg>
             </IconButton>
-            <IconButton
-              data-testid="measure-button"
-              className={classes.iconButton}
-              color={props.measureActive ? "info" : "inherit"}
-              title={props.measureActive ? "Cancel measuring" : "Measure distance"}
-              onClick={props.onClickMeasure}
-            >
-              <Ruler24Filled className={classes.rulerIcon} />
-            </IconButton>
+            {false && (
+              <IconButton
+                data-testid="measure-button"
+                className={classes.iconButton}
+                color={props.measureActive ? "info" : "inherit"}
+                title={props.measureActive ? "Cancel measuring" : "Measure distance"}
+                onClick={props.onClickMeasure}
+              >
+                <Ruler24Filled className={classes.rulerIcon} />
+              </IconButton>
+            )}
 
             {false && publishControls}
           </Paper>
