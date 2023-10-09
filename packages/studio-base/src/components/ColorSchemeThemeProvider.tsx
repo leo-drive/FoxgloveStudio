@@ -14,5 +14,5 @@ export function ColorSchemeThemeProvider({
   const [colorScheme = "system"] = useAppConfigurationValue<string>(AppSetting.COLOR_SCHEME);
   const systemSetting = useMedia("(prefers-color-scheme: dark)");
   const isDark = colorScheme === "dark" || (colorScheme === "system" && systemSetting);
-  return <ThemeProvider isDark={isDark}>{children}</ThemeProvider>;
+  return <ThemeProvider isDark={isDark || true}>{children}</ThemeProvider>;
 }
