@@ -11,19 +11,36 @@
 //   found at http://www.apache.org/licenses/LICENSE-2.0
 //   You may not use this file except in compliance with the License.
 
+import {
+  Home24Filled,
+  Person24Filled,
+  QuestionCircle24Filled,
+  VehicleCar28Regular,
+} from "@fluentui/react-icons";
 import CloseIcon from "@mui/icons-material/Close";
-import { IconButton, InputBase } from "@mui/material";
-import React, { Ref as ReactRef, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import textMetrics from "text-metrics";
+import {
+  IconButton,
+  // InputBase
+} from "@mui/material";
+import {
+  // React,
+  // Ref as ReactRef,
+  useCallback,
+  useEffect,
+  useMemo,
+  // useRef,
+  useState,
+} from "react";
+// import textMetrics from "text-metrics";
 import { makeStyles } from "tss-react/mui";
 
-import { PANEL_TOOLBAR_MIN_HEIGHT } from "@foxglove/studio-base/components/PanelToolbar";
+// import { PANEL_TOOLBAR_MIN_HEIGHT } from "@foxglove/studio-base/components/PanelToolbar";
 import { TabActions } from "@foxglove/studio-base/panels/Tab/TabDndContext";
-import { fonts } from "@foxglove/studio-base/util/sharedStyleConstants";
 
-const MAX_TAB_WIDTH = 120;
-const MIN_ACTIVE_TAB_WIDTH = 40;
-const MIN_OTHER_TAB_WIDTH = 14;
+// import { fonts } from "@foxglove/studio-base/util/sharedStyleConstants";
+// const MAX_TAB_WIDTH = 120;
+// const MIN_ACTIVE_TAB_WIDTH = 40;
+// const MIN_OTHER_TAB_WIDTH = 14;
 
 const useStyles = makeStyles<void, "active">()((theme, _params, classes) => ({
   root: {
@@ -31,17 +48,17 @@ const useStyles = makeStyles<void, "active">()((theme, _params, classes) => ({
     color: theme.palette.text.secondary,
     fontSize: theme.typography.body2.fontSize,
     fontWeight: theme.typography.body2.fontWeight,
-    position: "relative",
-    display: "flex",
-    alignItems: "center",
-    width: "100%",
-    height: PANEL_TOOLBAR_MIN_HEIGHT,
-    padding: theme.spacing(0, 1),
+    // position: "relative",
+    // display: "flex",
+    // alignItems: "center",
+    // width: "100%",
+    // height: PANEL_TOOLBAR_MIN_HEIGHT,
+    // padding: theme.spacing(0, 1),
     userSelect: "none",
     backgroundColor: "transparent",
-    maxWidth: MAX_TAB_WIDTH,
-    gap: theme.spacing(0.5),
-    top: 1,
+    // maxWidth: MAX_TAB_WIDTH,
+    // gap: theme.spacing(0.5),
+    // top: 1,
 
     [`:not(.${classes.active}):hover`]: {
       color: theme.palette.text.primary,
@@ -50,22 +67,22 @@ const useStyles = makeStyles<void, "active">()((theme, _params, classes) => ({
   active: {
     color: theme.palette.text.primary,
     fontWeight: theme.typography.subtitle2.fontWeight,
-    backgroundColor: theme.palette.background.paper,
+    // backgroundColor: theme.palette.background.paper,
     userSelect: "all",
     zIndex: 1,
     boxShadow: theme.shadows[2],
   },
-  dragging: {
-    backgroundColor: theme.palette.background.paper,
-    borderColor: theme.palette.action.selected,
-  },
+  // dragging: {
+  //   backgroundColor: theme.palette.background.paper,
+  //   borderColor: theme.palette.action.selected,
+  // },
   hidden: {
     visibility: "hidden",
   },
-  input: {
-    font: "inherit",
-    color: "inherit",
-  },
+  // input: {
+  //   font: "inherit",
+  //   color: "inherit",
+  // },
   dropIndicator: {
     position: "absolute",
     top: 0,
@@ -87,26 +104,26 @@ const useStyles = makeStyles<void, "active">()((theme, _params, classes) => ({
   },
 }));
 
-const fontFamily = fonts.SANS_SERIF;
-const fontSize = "12px";
+// const fontFamily = fonts.SANS_SERIF;
+// const fontSize = "12px";
 
-let textMeasure: undefined | textMetrics.TextMeasure;
+// let textMeasure: undefined | textMetrics.TextMeasure;
 
-function measureText(text: string): number {
-  if (textMeasure == undefined) {
-    textMeasure = textMetrics.init({ fontFamily, fontSize });
-  }
-  return textMeasure.width(text) + 3;
-}
+// function measureText(text: string): number {
+//   if (textMeasure == undefined) {
+//     textMeasure = textMetrics.init({ fontFamily, fontSize });
+//   }
+//   return textMeasure.width(text) + 3;
+// }
 
 type Props = {
   hidden: boolean;
   highlight: "before" | "after" | undefined;
-  innerRef?: ReactRef<HTMLDivElement>;
+  // innerRef?: ReactRef<HTMLDivElement>;
   isActive: boolean;
-  isDragging: boolean;
+  // isDragging: boolean;
   actions: TabActions;
-  tabCount: number;
+  // tabCount: number;
   tabIndex: number;
   tabTitle?: string;
 };
@@ -115,22 +132,22 @@ export function ToolbarTab(props: Props): JSX.Element {
   const {
     tabIndex,
     isActive,
-    tabCount,
+    // tabCount,
     tabTitle = "",
-    isDragging,
+    // isDragging,
     actions,
-    innerRef,
+    // innerRef,
     highlight,
     hidden,
   } = props;
   const { classes, cx } = useStyles();
-  const inputRef = useRef<HTMLInputElement>(ReactNull);
+  // const inputRef = useRef<HTMLInputElement>(ReactNull);
   const [title, setTitle] = useState<string>(tabTitle);
-  const [editingTitle, setEditingTitle] = useState<boolean>(false);
-  const onChangeTitleInput = useCallback(
-    (ev: React.ChangeEvent<HTMLInputElement>) => setTitle(ev.target.value),
-    [],
-  );
+  // const [editingTitle, setEditingTitle] = useState<boolean>(false);
+  // const onChangeTitleInput = useCallback(
+  //   (ev: React.ChangeEvent<HTMLInputElement>) => setTitle(ev.target.value),
+  //   [],
+  // );
 
   const { selectTab, removeTab } = useMemo(
     () => ({
@@ -139,61 +156,62 @@ export function ToolbarTab(props: Props): JSX.Element {
     }),
     [actions, tabIndex],
   );
-  const setTabTitle = useCallback(
-    () => actions.setTabTitle(tabIndex, title),
-    [actions, tabIndex, title],
-  );
+  // const setTabTitle = useCallback(
+  //   () => actions.setTabTitle(tabIndex, title),
+  //   [actions, tabIndex, title],
+  // );
 
   const onClickTab = useCallback(() => {
     if (!isActive) {
       selectTab();
-    } else {
-      setEditingTitle(true);
-
-      setImmediate(() => {
-        if (inputRef.current) {
-          const inputEl: HTMLInputElement = inputRef.current;
-          inputEl.focus();
-          inputEl.select();
-        }
-      });
     }
-  }, [isActive, selectTab, inputRef]);
+    // else {
+    //   setEditingTitle(true);
 
-  const endTitleEditing = useCallback(() => {
-    setEditingTitle(false);
-    if (document.activeElement instanceof HTMLElement) {
-      document.activeElement.blur();
-    }
-  }, []);
+    //   setImmediate(() => {
+    //     if (inputRef.current) {
+    //       const inputEl: HTMLInputElement = inputRef.current;
+    //       inputEl.focus();
+    //       inputEl.select();
+    //     }
+    //   });
+    // }
+  }, [isActive, selectTab]);
 
-  const confirmNewTitle = useCallback(() => {
-    setTabTitle();
-    endTitleEditing();
-  }, [endTitleEditing, setTabTitle]);
+  // const endTitleEditing = useCallback(() => {
+  //   setEditingTitle(false);
+  //   if (document.activeElement instanceof HTMLElement) {
+  //     document.activeElement.blur();
+  //   }
+  // }, []);
 
-  const resetTitle = useCallback(() => {
-    setTitle(tabTitle);
-    endTitleEditing();
-  }, [endTitleEditing, tabTitle]);
+  // const confirmNewTitle = useCallback(() => {
+  //   setTabTitle();
+  //   endTitleEditing();
+  // }, [endTitleEditing, setTabTitle]);
 
-  const onKeyDown = useCallback(
-    (event: React.KeyboardEvent<HTMLInputElement>) => {
-      if (event.key === "Escape") {
-        resetTitle();
-      } else if (event.key === "Enter") {
-        confirmNewTitle();
-      }
-    },
-    [confirmNewTitle, resetTitle],
-  );
+  // const resetTitle = useCallback(() => {
+  //   setTitle(tabTitle);
+  //   endTitleEditing();
+  // }, [endTitleEditing, tabTitle]);
+
+  // const onKeyDown = useCallback(
+  //   (event: React.KeyboardEvent<HTMLInputElement>) => {
+  //     if (event.key === "Escape") {
+  //       resetTitle();
+  //     } else if (event.key === "Enter") {
+  //       confirmNewTitle();
+  //     }
+  //   },
+  //   [confirmNewTitle, resetTitle],
+  // );
 
   // If the tab is no longer active, stop editing the title
-  useEffect(() => {
-    if (!isActive) {
-      setEditingTitle(false);
-    }
-  }, [isActive]);
+  // useEffect(() => {
+  //   if (!isActive) {
+  //     setEditingTitle(false);
+  //   }
+  // }, [isActive]);
 
   // Update the cached title if the tabTitle changes
   useEffect(() => {
@@ -202,22 +220,11 @@ export function ToolbarTab(props: Props): JSX.Element {
 
   return (
     <div
-      hidden={hidden}
-      onClick={onClickTab}
-      ref={innerRef}
-      title={tabTitle ? tabTitle : "Enter tab name"}
-      data-testid="toolbar-tab"
-      className={cx(classes.root, {
-        [classes.active]: isActive,
-        [classes.dragging]: isDragging,
-        [classes.hidden]: hidden,
-      })}
       style={{
-        minWidth: isActive
-          ? `calc(max(${MIN_ACTIVE_TAB_WIDTH}px,  min(${Math.ceil(
-              measureText(tabTitle) + 30,
-            )}px, ${MAX_TAB_WIDTH}px, 100% - ${MIN_OTHER_TAB_WIDTH * (tabCount - 1)}px)))`
-          : undefined,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
       }}
     >
       {highlight != undefined && (
@@ -229,29 +236,122 @@ export function ToolbarTab(props: Props): JSX.Element {
           }}
         />
       )}
-      <InputBase
-        className={classes.input}
-        readOnly={!editingTitle}
-        placeholder="Enter tab name"
-        value={title}
-        onChange={onChangeTitleInput}
-        onBlur={setTabTitle}
-        onKeyDown={onKeyDown}
-        inputRef={inputRef}
-        style={{ pointerEvents: editingTitle ? "all" : "none" }}
-      />
-      {isActive && (
-        <IconButton
-          edge="end"
-          size="small"
-          data-testid="tab-icon"
-          title="Remove tab"
-          onClick={removeTab}
-          className={classes.iconButton}
+      <div
+        onClick={title !== "Account" && title !== "Support" ? onClickTab : undefined}
+        className={cx(classes.root, {
+          [classes.active]: isActive,
+          // [classes.dragging]: isDragging,
+          [classes.hidden]: hidden,
+        })}
+        style={{
+          width: "4rem",
+          height: "4rem",
+          aspectRatio: 1 / 1,
+          borderRadius: "9999px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          placeContent: "center",
+          placeItems: "center",
+          // backgroundColor: isActive ? "#fff" : "#99f",
+        }}
+      >
+        {title === "Home" && (
+          <Home24Filled
+            style={{
+              width: "3rem",
+              height: "3rem",
+            }}
+          />
+        )}
+        {title === "My Drive" && (
+          <VehicleCar28Regular
+            style={{
+              width: "3rem",
+              height: "3rem",
+            }}
+          />
+        )}
+        {title === "Account" && (
+          <Person24Filled
+            style={{
+              width: "3rem",
+              height: "3rem",
+            }}
+          />
+        )}
+        {title === "Support" && (
+          <QuestionCircle24Filled
+            style={{
+              width: "3rem",
+              height: "3rem",
+            }}
+          />
+        )}
+      </div>
+
+      <div
+        hidden={hidden}
+        onClick={onClickTab}
+        className={cx(classes.root, {
+          [classes.active]: isActive,
+          // [classes.dragging]: isDragging,
+          [classes.hidden]: hidden,
+        })}
+        // ref={innerRef}
+        title={tabTitle ? tabTitle : "Enter tab name"}
+        data-testid="toolbar-tab"
+      >
+        {/* <InputBase
+          className={classes.input}
+          readOnly={true}
+          placeholder="Enter tab name"
+          value={title}
+          onChange={onChangeTitleInput}
+          onBlur={setTabTitle}
+          onKeyDown={onKeyDown}
+          inputRef={inputRef}
+          style={{
+            pointerEvents: "none",
+            userSelect: "none",
+            outline: "none",
+            width: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            textAlign: "center",
+            paddingLeft: `calc(50% - ${measureText(title) / 2}px)`,
+          }}
+        /> */}
+        <span
+          style={{
+            pointerEvents: "none",
+            userSelect: "none",
+            outline: "none",
+            width: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            textAlign: "center",
+            paddingTop: "0.25rem",
+          }}
         >
-          <CloseIcon fontSize="inherit" />
-        </IconButton>
-      )}
+          {title}
+        </span>
+        {/* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition */}
+        {false && (
+          <IconButton
+            edge="end"
+            size="small"
+            data-testid="tab-icon"
+            title="Remove tab"
+            onClick={removeTab}
+            className={classes.iconButton}
+          >
+            <CloseIcon fontSize="inherit" />
+          </IconButton>
+        )}
+      </div>
     </div>
   );
 }

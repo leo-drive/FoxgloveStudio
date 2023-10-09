@@ -11,16 +11,13 @@
 //   found at http://www.apache.org/licenses/LICENSE-2.0
 //   You may not use this file except in compliance with the License.
 
-import AddIcon from "@mui/icons-material/Add";
-import { ButtonBase } from "@mui/material";
+// import { ButtonBase } from "@mui/material";
 import { useEffect } from "react";
 import { DropTargetMonitor, useDrop } from "react-dnd";
 import { makeStyles } from "tss-react/mui";
 
-import PanelToolbar, {
-  PANEL_TOOLBAR_MIN_HEIGHT,
-} from "@foxglove/studio-base/components/PanelToolbar";
-import ToolbarIconButton from "@foxglove/studio-base/components/PanelToolbar/ToolbarIconButton";
+import PanelToolbar from "@foxglove/studio-base/components/PanelToolbar"; // PANEL_TOOLBAR_MIN_HEIGHT,
+// import ToolbarIconButton from "@foxglove/studio-base/components/PanelToolbar/ToolbarIconButton";
 import Stack from "@foxglove/studio-base/components/Stack";
 import { DraggableToolbarTab } from "@foxglove/studio-base/panels/Tab/DraggableToolbarTab";
 import {
@@ -32,15 +29,16 @@ import { TabConfig } from "@foxglove/studio-base/types/layouts";
 
 const useStyles = makeStyles()((theme) => ({
   root: {
-    backgroundColor: theme.palette.background.default,
+    // backgroundColor: theme.palette.background.default,
+    backgroundColor: "#1E2034",
   },
   toolbar: {
     padding: theme.spacing(0, 0.75, 0, 0.25),
   },
-  button: {
-    flexGrow: 1,
-    height: PANEL_TOOLBAR_MIN_HEIGHT,
-  },
+  // button: {
+  //   flexGrow: 1,
+  //   height: PANEL_TOOLBAR_MIN_HEIGHT,
+  // },
 }));
 
 type Props = {
@@ -53,7 +51,10 @@ type Props = {
 
 export function TabbedToolbar(props: Props): JSX.Element {
   const { panelId, actions, tabs, activeTabIdx, setDraggingTabState } = props;
-  const { classes, theme } = useStyles();
+  const {
+    classes,
+    // theme
+  } = useStyles();
 
   const [{ isOver, item }, dropRef] = useDrop({
     accept: TAB_DRAG_TYPE,
@@ -70,20 +71,15 @@ export function TabbedToolbar(props: Props): JSX.Element {
     <Stack className={classes.root} flex="0 0" position="relative">
       <PanelToolbar
         className={classes.toolbar}
-        backgroundColor={theme.palette.background.default}
-        additionalIcons={
-          <ToolbarIconButton data-testid="add-tab" title="Add tab" onClick={actions.addTab}>
-            <AddIcon fontSize="inherit" />
-          </ToolbarIconButton>
-        }
+        // backgroundColor={theme.palette.background.default}
       >
         <Stack
           direction="row"
           flex="auto"
           alignItems="center"
+          justifyContent="space-evenly"
           ref={dropRef}
           data-testid="toolbar-droppable"
-          style={{ gap: 1 }}
           overflow="hidden"
         >
           {tabs.map((tab, i) => (
@@ -97,7 +93,7 @@ export function TabbedToolbar(props: Props): JSX.Element {
               tabTitle={tab.title}
             />
           ))}
-          <ButtonBase className={classes.button} onDoubleClick={actions.addTab} />
+          {/* <ButtonBase className={classes.button} onDoubleClick={actions.addTab} /> */}
         </Stack>
       </PanelToolbar>
     </Stack>

@@ -10,7 +10,12 @@
 //   This source code is licensed under the Apache License, Version 2.0,
 //   found at http://www.apache.org/licenses/LICENSE-2.0
 //   You may not use this file except in compliance with the License.
-import { useDrag, useDrop, DropTargetMonitor, ConnectableElement } from "react-dnd";
+import {
+  useDrag,
+  useDrop,
+  DropTargetMonitor,
+  // ConnectableElement
+} from "react-dnd";
 
 import { useCurrentLayoutActions } from "@foxglove/studio-base/context/CurrentLayoutContext";
 import { TAB_DRAG_TYPE, TabActions } from "@foxglove/studio-base/panels/Tab/TabDndContext";
@@ -30,7 +35,10 @@ export function DraggableToolbarTab(props: Props): JSX.Element {
   const { isActive, tabCount, actions, panelId, tabTitle, tabIndex } = props;
   const { moveTab } = useCurrentLayoutActions();
 
-  const [{ isDragging }, connectDragRef] = useDrag<TabLocation, void, { isDragging: boolean }>({
+  const [
+    { isDragging },
+    // connectDragRef
+  ] = useDrag<TabLocation, void, { isDragging: boolean }>({
     type: TAB_DRAG_TYPE,
     item: { panelId, tabIndex },
     collect: (monitor) => ({
@@ -38,11 +46,10 @@ export function DraggableToolbarTab(props: Props): JSX.Element {
     }),
   });
 
-  const [{ highlight }, connectDropRef] = useDrop<
-    TabLocation,
-    void,
-    { highlight: "before" | "after" | undefined }
-  >({
+  const [
+    { highlight },
+    // connectDropRef
+  ] = useDrop<TabLocation, void, { highlight: "before" | "after" | undefined }>({
     accept: TAB_DRAG_TYPE,
     collect: (monitor: DropTargetMonitor<TabLocation, void>) => ({
       highlight: monitor.isOver()
@@ -67,12 +74,12 @@ export function DraggableToolbarTab(props: Props): JSX.Element {
     isActive,
     tabCount,
     actions,
-    isDragging,
-    innerRef: (el: ConnectableElement) => {
-      // hook inner tab ref to drag and drop
-      connectDragRef(el);
-      connectDropRef(el);
-    },
+    // isDragging,
+    // innerRef: (el: ConnectableElement) => {
+    //   // hook inner tab ref to drag and drop
+    //   connectDragRef(el);
+    //   connectDropRef(el);
+    // },
     hidden: isDragging,
     highlight,
   };
