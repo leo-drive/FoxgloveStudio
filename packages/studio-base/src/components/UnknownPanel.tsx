@@ -22,7 +22,8 @@ function UnconnectedUnknownPanel(props: Props) {
 
   return (
     <Stack flex="auto" alignItems="center" justifyContent="center" data-testid={config.id}>
-      <PanelToolbar isUnknownPanel />
+      {/* <PanelToolbar isUnknownPanel /> */}
+      <PanelToolbar />
       <EmptyState>Unknown panel type: {config.type}.</EmptyState>
     </Stack>
   );
