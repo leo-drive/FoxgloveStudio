@@ -12,8 +12,11 @@
 //   You may not use this file except in compliance with the License.
 
 import FullscreenExitIcon from "@mui/icons-material/FullscreenExit";
-import { Typography } from "@mui/material";
-import { useContext, useMemo, CSSProperties } from "react";
+import {
+  useContext,
+  useMemo,
+  // CSSProperties
+} from "react";
 import { makeStyles } from "tss-react/mui";
 
 import PanelContext from "@foxglove/studio-base/components/PanelContext";
@@ -26,8 +29,8 @@ import { PanelToolbarControls } from "./PanelToolbarControls";
 export const PANEL_TOOLBAR_MIN_HEIGHT = 30;
 
 type Props = {
-  additionalIcons?: React.ReactNode;
-  backgroundColor?: CSSProperties["backgroundColor"];
+  // additionalIcons?: React.ReactNode;
+  // backgroundColor?: CSSProperties["backgroundColor"];
   children?: React.ReactNode;
   className?: string;
   isUnknownPanel?: boolean;
@@ -40,9 +43,9 @@ const useStyles = makeStyles()((theme) => ({
     flex: "0 0 auto",
     alignItems: "center",
     justifyContent: "flex-end",
-    padding: theme.spacing(0.25, 0.75),
+    // padding: theme.spacing(0.25, 0.75),
     display: "flex",
-    minHeight: PANEL_TOOLBAR_MIN_HEIGHT,
+    // minHeight: PANEL_TOOLBAR_MIN_HEIGHT,
     backgroundColor: theme.palette.background.paper,
     width: "100%",
     left: 0,
@@ -54,8 +57,7 @@ const useStyles = makeStyles()((theme) => ({
 // react-mosaic layout.  It adds a drag handle, remove/replace controls
 // and has a place to add custom controls via it's children property
 export default React.memo<Props>(function PanelToolbar({
-  additionalIcons,
-  backgroundColor,
+  // additionalIcons,
   children,
   className,
   isUnknownPanel = false,
@@ -74,7 +76,7 @@ export default React.memo<Props>(function PanelToolbar({
   const additionalIconsWithHelp = useMemo(() => {
     return (
       <>
-        {additionalIcons}
+        {/* {additionalIcons} */}
         {isFullscreen === true && (
           <ToolbarIconButton
             value="exit-fullscreen"
@@ -86,7 +88,7 @@ export default React.memo<Props>(function PanelToolbar({
         )}
       </>
     );
-  }, [additionalIcons, isFullscreen, exitFullscreen]);
+  }, [isFullscreen, exitFullscreen]);
 
   // If we have children then we limit the drag area to the controls. Otherwise the entire
   // toolbar is draggable.
@@ -103,24 +105,30 @@ export default React.memo<Props>(function PanelToolbar({
       : defaultPanelTitle;
 
   const title = customPanelTitle ?? panelContext?.title;
+
+  // eslint-disable-next-line no-restricted-syntax
+  console.log(title);
+
   return (
-    <header
-      className={cx(classes.root, className)}
-      data-testid="mosaic-drag-handle"
-      ref={rootDragRef}
-      style={{ backgroundColor, cursor: rootDragRef != undefined ? "grab" : "auto" }}
-    >
-      {children ??
-        (title && (
-          <Typography noWrap variant="body2" color="text.secondary" flex="auto">
-            {title}
-          </Typography>
-        ))}
-      <PanelToolbarControls
-        additionalIcons={additionalIconsWithHelp}
-        isUnknownPanel={!!isUnknownPanel}
-        ref={controlsDragRef}
-      />
-    </header>
+    <>
+      <header
+        className={cx(classes.root, className)}
+        data-testid="mosaic-drag-handle"
+        ref={rootDragRef}
+        style={{
+          backgroundColor: "transparent",
+          // cursor: rootDragRef != undefined ? "grab" : "auto",
+          cursor: "auto",
+          width: "100%",
+        }}
+      >
+        {children ?? <></>}
+        <PanelToolbarControls
+          additionalIcons={additionalIconsWithHelp}
+          // isUnknownPanel={!!isUnknownPanel}
+          ref={controlsDragRef}
+        />
+      </header>
+    </>
   );
 });

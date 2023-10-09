@@ -15,6 +15,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import { forwardRef, useCallback, useContext, useMemo } from "react";
 
 import PanelContext from "@foxglove/studio-base/components/PanelContext";
+// import { PanelActionsDropdown } from "@foxglove/studio-base/components/PanelToolbar/PanelActionsDropdown";
 import ToolbarIconButton from "@foxglove/studio-base/components/PanelToolbar/ToolbarIconButton";
 import Stack from "@foxglove/studio-base/components/Stack";
 import { useSelectedPanels } from "@foxglove/studio-base/context/CurrentLayoutContext";
@@ -25,16 +26,14 @@ import {
 } from "@foxglove/studio-base/context/PanelStateContext";
 import { useWorkspaceActions } from "@foxglove/studio-base/context/Workspace/useWorkspaceActions";
 
-import { PanelActionsDropdown } from "./PanelActionsDropdown";
-
 type PanelToolbarControlsProps = {
   additionalIcons?: React.ReactNode;
-  isUnknownPanel: boolean;
+  // isUnknownPanel: boolean;
 };
 
 const PanelToolbarControlsComponent = forwardRef<HTMLDivElement, PanelToolbarControlsProps>(
   (props, ref) => {
-    const { additionalIcons, isUnknownPanel } = props;
+    const { additionalIcons } = props;
     const { id: panelId, type: panelType } = useContext(PanelContext) ?? {};
     const panelCatalog = useContext(PanelCatalogContext);
     const { setSelectedPanelIds } = useSelectedPanels();
@@ -66,12 +65,13 @@ const PanelToolbarControlsComponent = forwardRef<HTMLDivElement, PanelToolbarCon
     return (
       <Stack direction="row" alignItems="center" paddingLeft={1} ref={ref}>
         {additionalIcons}
-        {showSettingsButton && (
+        {/* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition */}
+        {showSettingsButton && false && (
           <ToolbarIconButton title="Settings" onClick={openSettings}>
             <SettingsIcon />
           </ToolbarIconButton>
         )}
-        <PanelActionsDropdown isUnknownPanel={isUnknownPanel} />
+        {/* <PanelActionsDropdown isUnknownPanel={isUnknownPanel} /> */}
       </Stack>
     );
   },

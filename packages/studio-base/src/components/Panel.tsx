@@ -542,7 +542,7 @@ export default function Panel<
           value={{
             type,
             id: childId,
-            title,
+            title: title ? "" : "",
             config: panelComponentConfig,
             saveConfig: saveConfig as SaveConfig<PanelConfig>,
             updatePanelConfigs,
