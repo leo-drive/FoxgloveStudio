@@ -31,7 +31,7 @@ import { TabConfig } from "@foxglove/studio-base/types/layouts";
 const useStyles = makeStyles()((theme) => ({
   root: {
     // backgroundColor: theme.palette.background.default,
-    backgroundColor: "#1E2034",
+    backgroundColor: "#181928",
   },
   toolbar: {
     padding: theme.spacing(0, 0.75, 0, 0.25),
