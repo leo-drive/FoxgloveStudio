@@ -18,6 +18,7 @@ import golfImage from "../../assets/YAN.png";
 import backgroundImage from "../../assets/bg.png";
 
 import "@foxglove/studio-base/styles/assets/inter.css";
+import "@foxglove/studio-base/styles/assets/prompt.css";
 
 const languages = ["English", "Japanese"];
 
@@ -233,7 +234,7 @@ const WelcomePage = ({
             backgroundColor: "white",
             placeContent: "center",
             placeItems: "center",
-            fontFamily: fonts.SANS_SERIF,
+            fontFamily: fonts.PROMPT,
             backgroundImage: `url(${backgroundImage})`,
             backgroundSize: "contain",
             backgroundRepeat: "no-repeat",
@@ -267,7 +268,7 @@ const WelcomePage = ({
                 style={{
                   fontSize: "4rem",
                   fontWeight: 700,
-                  background: "linear-gradient( #89DDCE, #3C3C3C)",
+                  background: "linear-gradient( #2BD1E4, #3C3C3C)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   color: "transparent",
@@ -418,7 +419,7 @@ const WelcomePage = ({
             backgroundColor: "white",
             placeContent: "center",
             placeItems: "center",
-            fontFamily: "monospace",
+            fontFamily: fonts.PROMPT,
             backgroundImage: `url(${backgroundImage})`,
             backgroundSize: "contain",
             backgroundRepeat: "no-repeat",
