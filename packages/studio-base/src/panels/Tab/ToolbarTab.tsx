@@ -11,17 +11,8 @@
 //   found at http://www.apache.org/licenses/LICENSE-2.0
 //   You may not use this file except in compliance with the License.
 
-import {
-  Home24Filled,
-  Person24Filled,
-  QuestionCircle24Filled,
-  VehicleCar28Regular,
-} from "@fluentui/react-icons";
 import CloseIcon from "@mui/icons-material/Close";
-import {
-  IconButton,
-  // InputBase
-} from "@mui/material";
+import { IconButton } from "@mui/material";
 import {
   // React,
   // Ref as ReactRef,
@@ -35,6 +26,7 @@ import {
 import { makeStyles } from "tss-react/mui";
 
 // import { PANEL_TOOLBAR_MIN_HEIGHT } from "@foxglove/studio-base/components/PanelToolbar";
+import { AccountIcon, CarIcon, HomeIcon } from "@foxglove/studio-base/components/LeoUI/Header";
 import { TabActions } from "@foxglove/studio-base/panels/Tab/TabDndContext";
 
 // import { fonts } from "@foxglove/studio-base/util/sharedStyleConstants";
@@ -70,7 +62,7 @@ const useStyles = makeStyles<void, "active">()((theme, _params, classes) => ({
     // backgroundColor: theme.palette.background.paper,
     userSelect: "all",
     zIndex: 1,
-    boxShadow: theme.shadows[2],
+    // boxShadow: theme.shadows[2],
   },
   // dragging: {
   //   backgroundColor: theme.palette.background.paper,
@@ -225,6 +217,7 @@ export function ToolbarTab(props: Props): JSX.Element {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
+        height: "5rem",
       }}
     >
       {highlight != undefined && (
@@ -237,7 +230,7 @@ export function ToolbarTab(props: Props): JSX.Element {
         />
       )}
       <div
-        onClick={title !== "Account" && title !== "Support" ? onClickTab : undefined}
+        onClick={title !== "Account" ? onClickTab : undefined}
         className={cx(classes.root, {
           [classes.active]: isActive,
           // [classes.dragging]: isDragging,
@@ -256,38 +249,9 @@ export function ToolbarTab(props: Props): JSX.Element {
           // backgroundColor: isActive ? "#fff" : "#99f",
         }}
       >
-        {title === "Home" && (
-          <Home24Filled
-            style={{
-              width: "3rem",
-              height: "3rem",
-            }}
-          />
-        )}
-        {title === "My Drive" && (
-          <VehicleCar28Regular
-            style={{
-              width: "3rem",
-              height: "3rem",
-            }}
-          />
-        )}
-        {title === "Account" && (
-          <Person24Filled
-            style={{
-              width: "3rem",
-              height: "3rem",
-            }}
-          />
-        )}
-        {title === "Support" && (
-          <QuestionCircle24Filled
-            style={{
-              width: "3rem",
-              height: "3rem",
-            }}
-          />
-        )}
+        {title === "Home" && <HomeIcon selected={isActive} />}
+        {title === "My Drive" && <CarIcon selected={isActive} />}
+        {title === "Account" && <AccountIcon selected={isActive} />}
       </div>
 
       <div
@@ -323,7 +287,7 @@ export function ToolbarTab(props: Props): JSX.Element {
             paddingLeft: `calc(50% - ${measureText(title) / 2}px)`,
           }}
         /> */}
-        <span
+        {/* <span
           style={{
             pointerEvents: "none",
             userSelect: "none",
@@ -337,7 +301,7 @@ export function ToolbarTab(props: Props): JSX.Element {
           }}
         >
           {title}
-        </span>
+        </span> */}
         {/* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition */}
         {false && (
           <IconButton

@@ -16,7 +16,6 @@ import { MosaicNode } from "react-mosaic-component";
 import { makeStyles } from "tss-react/mui";
 
 import { EmptyPanelLayout } from "@foxglove/studio-base/components/EmptyPanelLayout";
-import Header from "@foxglove/studio-base/components/LeoUI/Header";
 import Panel from "@foxglove/studio-base/components/Panel";
 import { usePanelContext } from "@foxglove/studio-base/components/PanelContext";
 import { UnconnectedPanelLayout } from "@foxglove/studio-base/components/PanelLayout";
@@ -111,7 +110,6 @@ function Tab({ config, saveConfig }: Props) {
 
   return (
     <Stack flex="auto" overflow="hidden">
-      <Header title={activeTab?.title ?? ""} />
       <Stack direction="row" flex="auto" overflow="hidden" position="relative">
         {activeLayout != undefined ? (
           <TabDndContext.Provider value={{ preventTabDrop }}>

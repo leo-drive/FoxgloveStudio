@@ -247,10 +247,6 @@ export const defaultLayout: LayoutData =
             title: "Account",
             layout: "sceneUpdateConverter.MissionControl!42b2mhp",
           },
-          {
-            title: "Support",
-            layout: "sceneUpdateConverter.MissionControl!42bv4hp",
-          },
         ],
       },
     },

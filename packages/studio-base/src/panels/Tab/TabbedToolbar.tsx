@@ -16,6 +16,7 @@ import { useEffect } from "react";
 import { DropTargetMonitor, useDrop } from "react-dnd";
 import { makeStyles } from "tss-react/mui";
 
+import { LeodriveLogo, TimeTemp } from "@foxglove/studio-base/components/LeoUI/Header";
 import PanelToolbar from "@foxglove/studio-base/components/PanelToolbar"; // PANEL_TOOLBAR_MIN_HEIGHT,
 // import ToolbarIconButton from "@foxglove/studio-base/components/PanelToolbar/ToolbarIconButton";
 import Stack from "@foxglove/studio-base/components/Stack";
@@ -77,11 +78,15 @@ export function TabbedToolbar(props: Props): JSX.Element {
           direction="row"
           flex="auto"
           alignItems="center"
-          justifyContent="space-evenly"
+          justifyContent="center"
+          gap={12}
           ref={dropRef}
           data-testid="toolbar-droppable"
           overflow="hidden"
+          position="relative"
         >
+          <LeodriveLogo />
+
           {tabs.map((tab, i) => (
             <DraggableToolbarTab
               isActive={activeTabIdx === i}
@@ -93,6 +98,8 @@ export function TabbedToolbar(props: Props): JSX.Element {
               tabTitle={tab.title}
             />
           ))}
+
+          <TimeTemp />
           {/* <ButtonBase className={classes.button} onDoubleClick={actions.addTab} /> */}
         </Stack>
       </PanelToolbar>
